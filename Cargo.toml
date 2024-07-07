@@ -1,0 +1,46 @@
+[package]
+name = "ndspec"
+version = "0.1.0"
+authors = ["Michael Morris-Thomas"]
+description = "A package for ocean waves and energy spectra"
+edition = "2021"
+
+[workspace]
+members = [ "crates/*"]
+
+[dependencies]
+ndarray = "0.15.6"
+ndarray-stats = "0.5.1"
+num = "0.4.3"
+num-complex = "0.4.5"
+rayon = "1.10.0"
+special = "0.10.3"
+
+ndcore = {path = "crates/ndcore"}
+azimuth = {path = "crates/azimuth"}
+
+pyo3 = {version = "0.20.3", optional = true}
+numpy = {version = "0.20.0", optional = true}
+
+
+[dev-dependencies]
+approx = "0.5.1"
+assert_approx_eq = "1.1.0"
+
+[features]
+python-extension = ["pyo3", "numpy", "pyo3/extension-module"]
+
+[lib]
+name = "ndspec"
+crate-type = ["cdylib"]
+
+[package.metadata.rust]
+components = ["rustfmt"]
+max_width = 100
+hard_tabs = false
+tab_spaces = 4
+newline_style = "Auto"
+
+[package.metadata.docs.rs]
+rustdoc-args = [ "--html-in-header", "./src/header.html" ]
+

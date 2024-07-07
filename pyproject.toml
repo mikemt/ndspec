@@ -1,0 +1,79 @@
+[build-system]
+requires = [
+    "maturin>=1.4,<2.0",
+]
+build-backend = "maturin"
+
+[project]
+name = "ndspec"
+version = "0.1.0"
+description = "A package for ocean waves and energy spectra"
+authors = [
+    { name = "Michael Morris-Thomas", email = "michael.morristhomas@me.com" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Physics",
+    "License :: Other/Proprietary License",
+]
+license = {file = "LICENSE.txt"}
+dependencies = [
+    "numpy>=1.26.4",
+]
+requires-python = ">=3.12"
+readme = "README.md"
+
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.1.1",
+    "ruff>=0.3.2",
+    "mypy>=1.9.0",
+    "pyright>=1.1.354",
+]
+docs = [
+    "mkdocs>=1.5.3",
+    "mkdocstrings>=0.24.1",
+    "mkdocs-material>=9.5.13",
+    "mkdocstrings-python>=1.9.0",
+]
+
+[tool.maturin]
+python-source = "python"
+module-name = "ndspec._libndspec"
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+docstring-code-line-length = 79
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "B",
+    "SIM",
+    "I",
+]
+
+[tool.ruff.lint.isort]
+case-sensitive = true
+order-by-type = true
+combine-as-imports = true
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+lines-after-imports = 2
+
