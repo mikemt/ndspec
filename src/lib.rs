@@ -1,6 +1,6 @@
-//! # spectrums
+//! # ndpec
 //!
-//! `spectrums` is a crate for working with energy density spectra with a focus on ocean waves, wind, and related response spectra.
+//! `ndspec` is a crate for working with energy density spectra with a focus on ocean waves, wind, and related response spectra.
 //!
 //! The crate is organised into the following modules:
 //!
@@ -13,7 +13,7 @@
 //! ## Example
 //!
 //! ```
-//! use spectrums::prelude::*;
+//! use ndspec::prelude::*;
 //!
 //! let hs = 1.5;
 //! let tp = 18.0;
@@ -29,7 +29,6 @@ pub mod wind;
 
 #[cfg(feature = "python-extension")]
 use pyo3::prelude::*;
-//use numpy::{PyReadonlyArray1, PyReadonlyArray2};
 
 /// ## The prelude
 ///

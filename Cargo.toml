@@ -41,6 +41,4 @@ hard_tabs = false
 tab_spaces = 4
 newline_style = "Auto"
 
-[package.metadata.docs.rs]
-rustdoc-args = [ "--html-in-header", "./src/header.html" ]
 
