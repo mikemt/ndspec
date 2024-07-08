@@ -1,7 +1,7 @@
 [package]
 name = "ndspec"
 version = "0.1.0"
-authors = ["Michael Morris-Thomas"]
+authors = ["Michael Morris-Thomas <michael.morris-thomas@uwa.edu.au>"]
 description = "A package for ocean waves and energy spectra"
 edition = "2021"
 
