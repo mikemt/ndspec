@@ -7,10 +7,30 @@
 //! * `core` - Core functionality for working with energy density spectra.
 //! * `waves` - Functions for calculating energy density spectra for ocean waves.
 //! * `wind` - Functions for calculating energy density spectra for wind.
-//! * `spectrum1d` - 1D energy density spectra.
-//! * `spectrum2d` - 2D energy density spectra.
+//! * `spectrum` - provides the Types `Spectrum1` and 'Spectrum2' for one-dimensional and two-dimensional spectra respectively.
 //!
-//! ## Example
+//! All wave and wind spectra can be converted into either a `Spectrum1` or
+//! `Spectrum2` Type. These types provide various traits for working
+//! with and evaluating energy density spectra.
+//!
+//! The crate is designed to be used in conjunction with the `ndarray`
+//! crate. The `ndarray::Array1` and `ndarray::Array2` types are
+//! underlying data structures adopted throughout.
+//!
+//! The crate also provides a Python extension that can be compiled and installed seperately.
+//!
+//! ## Installation
+//!
+//! Add the following to your `Cargo.toml` file:
+//!
+//! ```toml
+//! [dependencies]
+//! ndspec = "0.1.0"
+//! ```
+//!
+//! ## Usage
+//!
+//! The following example demonstrates how to calculate the energy density spectrum for a Bretschneider wave spectrum:
 //!
 //! ```
 //! use ndspec::prelude::*;

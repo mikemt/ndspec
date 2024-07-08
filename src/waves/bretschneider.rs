@@ -9,11 +9,11 @@ const N_FREQ: usize = 256;
 
 /// # Bretschneider spectrum
 ///
-/// A struct for the Bretschneider energy density spectrum.
+/// A struct for the two-paramter Bretschneider energy density spectrum.
 ///
 /// ## Fields
 /// * `hs` - significant wave height \[m\]
-/// * `tp` - peak wave period \[s\]
+/// * `tp` - peak spectral wave period \[s\]
 /// * `omega` - frequency range \[rad/s\]
 ///
 /// ## Methods
@@ -21,10 +21,15 @@ const N_FREQ: usize = 256;
 /// * `set_hs` - set the significant wave height
 /// * `set_tp` - set the peak wave period
 /// * `set_omega` - set the frequency range
-/// * `set_parameters` - set the significant wave height and peak wave period
+/// * `set_parameters` - set the significant wave height and peak spectral wave period
 /// * `abs_error` - calculate the absolute error between the significant wave height and the integrated energy
 /// * `to_spec1d` - convert the spectrum to a 1D spectrum
-/// * `to_spec2d` - convert the spectrum to a 2D spectrum
+/// * `to_spec2d` - convert the spectrum to a 2D spectrum for a given spreading function
+///
+/// ## Default values
+/// * `hs` - 1.0
+/// * `tp` - 10.0
+/// * `omega` - 256 linearly spaced frequencies from 0.1 to $\pi$ rad/s
 ///
 /// ## Examples
 ///
@@ -36,20 +41,36 @@ const N_FREQ: usize = 256;
 /// let energy = spec.energy();
 /// ```
 ///
+/// to set a unique frequency space and calculate the energy density spectrum:
+///
+/// ```
+/// let omega = ndspec::Array1::linspace(0.1, std::f64::consts::PI, 64);
+/// let energy = spec.set_omega(omega).energy();
+/// ```
+/// and to calculate the error from this frequency discretisation:
+/// ```
+/// let error = spec.abs_error();
+/// ```
+///
 /// ## Description
 ///
-/// The Bretschneider energy density spectrum is defined[^1][^2]:
+/// The parametric form of the two-parameter Bretschneider wave spectrum as a function of circular frequency $\omega$ is defined[^1][^2]:
 ///
 /// $$
-///  S(\omega) = \frac{5}{16} H_s^2 \omega_p^4 \omega^{-5} \exp\left(-\frac{5}{4}\left(\frac{\omega_p}{\omega}\right)^4\right)
+/// S(\omega) = \frac{5}{16} H_s^2 \omega_p^4 \omega^{-5} \exp\left(-\frac{5}{4}\left(\frac{\omega_p}{\omega}\right)^4\right)
 /// $$
+///
+/// where $H_s$ denotes the significant wave height and $\omega_p = 2 \pi / T_p$ defines the peak spectral wave frequency. It can be reduced
+/// to the single-parameter Pierson-Moskowitz spectrum by setting $\omega_p = 0.4 \sqrt{g / H_s}$[^3].
+///
+/// The error in the frequencies discretisation can be calculated from:
 ///
 /// ## References
 /// [^1]: C. L. Bretschneider, "Revisions in wave forecasting: deep and
 /// shallow water," Int. Conf. Coastal. Eng., no. 6, p. 3, Jan. 1957,
 /// doi: 10.9753/icce.v6.3.
 /// [^2]: DNV, "DNV-RP-C205: Environmental conditions and environmental loads," 2021.
-
+/// [^3]: Ochi, M. K. Ocean Waves: The Stochastic Approach. Cambridge University Press, 1997.
 ///
 pub struct Bretschneider {
     pub hs: f64,
@@ -80,6 +101,7 @@ impl Default for Bretschneider {
 }
 
 impl Bretschneider {
+    /// Create a new Bretschneider spectrum
     pub fn new(hs: f64, tp: f64) -> Self {
         Bretschneider {
             hs,
@@ -88,38 +110,52 @@ impl Bretschneider {
         }
     }
 
+    /// Calculate the energy density spectrum
     pub fn energy(&self) -> Array1<f64> {
         energy(self.omega.view(), self.hs, self.tp)
     }
 
+    /// Set the significant wave height
     pub fn set_hs(&mut self, hs: f64) -> &mut Self {
         self.hs = hs;
         self
     }
 
+    /// Set the peak spectral wave period
     pub fn set_tp(&mut self, tp: f64) -> &mut Self {
         self.tp = tp;
         self
     }
 
+    /// Set the frequency space in units of rad/s
+    ///
+    /// # Arguments
+    /// * `omega` - frequency space vector of units rad/s
+    ///
+    /// # Returns
+    /// * `Self`
     pub fn set_omega(&mut self, omega: Array1<f64>) -> &mut Self {
         self.omega = omega;
         self
     }
 
+    /// Convenience method to set both the significant wave height and peak spectral wave period
     pub fn set_parameters(&mut self, hs: f64, tp: f64) -> &mut Self {
         self.set_hs(hs).set_tp(tp)
     }
 
+    /// Calculate the absolute error between the significant wave height and the integrated energy
     pub fn abs_error(&self) -> f64 {
         let area = trapz(self.energy().view(), self.omega.view());
         (self.hs - 4.0 * area.sqrt()).abs()
     }
 
+    /// Convert the spectrum to a 1D spectrum Type
     pub fn to_spec1d(&self) -> Spectrum1D {
         Spectrum1D::new(self.omega.to_owned(), self.energy())
     }
 
+    /// Convert the spectrum to a 2D spectrum Type for a given spreading Type
     pub fn to_spec2d(&self, spreading: &Spreading) -> Spectrum2D {
         Spectrum2D::from_spec1d(&self.to_spec1d(), spreading)
     }
