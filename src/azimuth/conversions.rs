@@ -1,6 +1,6 @@
 use ndarray::Array2;
 
-use crate::branch::convert_branch_180;
+use crate::azimuth::branch::convert_branch_180;
 
 pub fn rotation_matrix_2d(theta: f64) -> Array2<f64> {
     let theta_rad = theta.to_radians();

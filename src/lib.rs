@@ -55,6 +55,7 @@
 //#![warn(missing_doc_code_examples)]
 
 //
+pub mod azimuth;
 pub mod core;
 pub mod spectrums;
 pub mod waves;
@@ -99,6 +100,8 @@ pub mod prelude {
     // re-export of external crate types and traits for convenience
     pub use ndarray::{Array1, Array2};
     pub use ndarray_stats::QuantileExt;
+
+    pub use crate::azimuth;
 }
 
 // convenience re-export of the prelude

@@ -1,7 +1,7 @@
 use numpy::{IntoPyArray, PyArray1, PyArray2, PyReadonlyArray1};
 use pyo3::{pyfunction, PyResult, Python};
 
-use azimuth;
+use crate::prelude::azimuth;
 
 #[pyfunction]
 pub fn convert_branch_180(theta: f64) -> PyResult<f64> {
