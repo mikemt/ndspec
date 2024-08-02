@@ -4,7 +4,6 @@ use std::f64::consts::PI;
 
 use crate::prelude::*;
 
-use crate::core::constants::GRAVITY;
 use crate::core::integration::trapz;
 use crate::core::interpolation;
 use crate::spectrums::{Spectrum1D, Spectrum2D};
