@@ -22,18 +22,8 @@ pub fn convert_branch_180_vec<'a>(
 }
 
 #[pyfunction]
-pub fn theta_to_orcaflex(theta: f64) -> PyResult<f64> {
-    Ok(azimuth::theta_to_orcaflex(theta))
-}
-
-#[pyfunction]
-pub fn heading_to_global(heading: f64) -> PyResult<f64> {
-    Ok(azimuth::heading_to_global(heading))
-}
-
-#[pyfunction]
-pub fn heading_to_orcaflex(heading: f64) -> PyResult<f64> {
-    Ok(azimuth::heading_to_orcaflex(heading))
+pub fn theta_to_global(heading: f64) -> PyResult<f64> {
+    Ok(azimuth::theta_to_global(heading))
 }
 
 #[pyfunction]

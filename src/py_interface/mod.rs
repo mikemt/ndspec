@@ -3,8 +3,8 @@ mod py_core;
 mod py_spectrums;
 
 pub use py_azimuth::{
-    convert_branch_180, convert_branch_180_vec, convert_branch_360, heading_to_global,
-    heading_to_orcaflex, rotation_matrix_2d, theta_to_orcaflex,
+    convert_branch_180, convert_branch_180_vec, convert_branch_360, rotation_matrix_2d,
+    theta_to_global,
 };
 
 pub use py_core::{interp1, interp2, version};

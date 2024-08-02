@@ -10,10 +10,6 @@ pub fn rotation_matrix_2d(theta: f64) -> Array2<f64> {
     Array2::from(vec![[cos_theta, -sin_theta], [sin_theta, cos_theta]])
 }
 
-pub fn theta_to_orcaflex(theta: f64) -> f64 {
-    ((90.0 - theta + 180.0) % 360.0 + 360.0) % 360.0
-}
-
 pub fn theta_to_global(theta: f64) -> f64 {
     ((90.0 - theta + 180.0) % 360.0 + 360.0) % 360.0
 }
@@ -22,49 +18,20 @@ pub fn theta_to_encounter_angle(theta: f64) -> f64 {
     convert_branch_180(theta + 180.0)
 }
 
-pub fn heading_to_orcaflex(heading: f64) -> f64 {
-    ((90.0 - heading) % 360.0 + 360.0) % 360.0
-}
-
-pub fn heading_to_global(heading: f64) -> f64 {
-    ((90.0 - heading) % 360.0 + 360.0) % 360.0
-}
-
-pub fn masp_to_global(theta: f64) -> f64 {
-    ((theta + 90.0) % 360.0 + 360.0) % 360.0
-}
-
-pub fn global_to_masp(theta: f64) -> f64 {
-    ((theta - 90.0) % 360.0 + 360.0) % 360.0
-}
-
 #[cfg(test)]
 mod test_azimuth_conversions {
     use super::*;
 
     #[test]
-    fn test_theta_to_orcaflex() {
-        assert_eq!(theta_to_orcaflex(0.0), 270.0);
-        assert_eq!(theta_to_orcaflex(90.0), 180.0);
-        assert_eq!(theta_to_orcaflex(180.0), 90.0);
-        assert_eq!(theta_to_orcaflex(270.0), 0.0);
-        assert_eq!(theta_to_orcaflex(360.0), 270.0);
-        assert_eq!(theta_to_orcaflex(-90.0), 0.0);
-        assert_eq!(theta_to_orcaflex(-180.0), 90.0);
-        assert_eq!(theta_to_orcaflex(-270.0), 180.0);
-        assert_eq!(theta_to_orcaflex(-360.0), 270.0);
-    }
-
-    #[test]
-    fn test_heading_to_global() {
-        assert_eq!(heading_to_global(0.0), 90.0);
-        assert_eq!(heading_to_global(90.0), 0.0);
-        assert_eq!(heading_to_global(180.0), 270.0);
-        assert_eq!(heading_to_global(270.0), 180.0);
-        assert_eq!(heading_to_global(360.0), 90.0);
-        assert_eq!(heading_to_global(-90.0), 180.0);
-        assert_eq!(heading_to_global(-180.0), 270.0);
-        assert_eq!(heading_to_global(-270.0), 0.0);
-        assert_eq!(heading_to_global(-360.0), 90.0);
+    fn test_theta_to_global() {
+        assert_eq!(theta_to_global(0.0), 90.0);
+        assert_eq!(theta_to_global(90.0), 0.0);
+        assert_eq!(theta_to_global(180.0), 270.0);
+        assert_eq!(theta_to_global(270.0), 180.0);
+        assert_eq!(theta_to_global(360.0), 90.0);
+        assert_eq!(theta_to_global(-90.0), 180.0);
+        assert_eq!(theta_to_global(-180.0), 270.0);
+        assert_eq!(theta_to_global(-270.0), 0.0);
+        assert_eq!(theta_to_global(-360.0), 90.0);
     }
 }
