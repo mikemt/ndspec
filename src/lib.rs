@@ -41,11 +41,26 @@
 //! let omega = Array1::linspace(0.1, PI, 100);
 //! let energy = bretschneider.set_omega(omega).energy();
 //! ```
+//!
+#![cfg_attr(
+    feature = "doc-images",
+    cfg_attr(all(),
+             doc = ::embed_doc_image::embed_image!("label_matrix", "./assets/matrix.png")))
+]
+//!
+//! ![energy density data structure][label_matrix]
+//!
 
+//#![warn(missing_docs)]
+//#![warn(missing_doc_code_examples)]
+
+//
 pub mod core;
 pub mod spectrums;
 pub mod waves;
 pub mod wind;
+
+//use embed_doc_image::embed_doc_image;
 
 #[cfg(feature = "python-extension")]
 use pyo3::prelude::*;
@@ -82,9 +97,7 @@ pub mod prelude {
         Jonswap,
     };
     pub use crate::waves::spreading::{spread_cos_2s, spread_cos_n, Spreading};
-    pub use crate::waves::{
-        bretschneider, bretschneider::Bretschneider, gaussian::gaussian_spectrum, jonswap,
-    };
+    pub use crate::waves::{gaussian::gaussian_spectrum, jonswap, Bretschneider, PiersonMoskowitz};
     pub use crate::wind::*;
 
     // re-export of external crate types and traits for convenience
@@ -113,9 +126,6 @@ fn ndspec(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(py_interface::convert_branch_360, m)?)?;
     m.add_function(wrap_pyfunction!(py_interface::rotation_matrix_2d, m)?)?;
     m.add_function(wrap_pyfunction!(py_interface::convert_branch_180_vec, m)?)?;
-    m.add_function(wrap_pyfunction!(py_interface::theta_to_orcaflex, m)?)?;
-    m.add_function(wrap_pyfunction!(py_interface::heading_to_global, m)?)?;
-    m.add_function(wrap_pyfunction!(py_interface::heading_to_orcaflex, m)?)?;
 
     // py_spectrums.rs
     m.add_function(wrap_pyfunction!(py_interface::maxhs, m)?)?;

@@ -97,6 +97,52 @@ impl Spreading {
     }
 }
 
+/// The so-called PNJ spreading function (type 0) for a wind generated wave
+///
+/// # Description
+///
+/// A simple cosine spreading function after Pierson, Neumann and
+/// James[^1] for a wind generated wave travelling in the direction
+/// $\theta_p$. It comprises the following form:
+///
+/// $$
+/// D_0(\theta) = \frac{2}{\pi} \cos^2(\theta - \theta_p)
+/// $$
+///
+/// where $\theta$ is the wave direction and $\theta_p$ is the peak
+/// spectral wave direction. Both are defined in degrees.
+///
+/// # Arguments
+///
+/// * `theta` - the wave direction in degrees
+/// * `theta_p` - the peak spectral wave direction in degrees
+///
+/// # Returns
+///
+/// The directional spreading function in the form of a 1D array.
+///
+/// # References
+///
+/// [^1]: Pierson, W. J., Neuman, G. & James, R. W. *Practical Methods
+/// for Observing and Forecasting Ocean Waves by Means of Wave Spectra
+/// and Statistics*. (Reprinted 1971). U.S. Naval Hydrographic Office,
+/// Washington D.C., H.O. Pub 603, (1955) doi:
+/// <http://dx.doi.org/10.25607/OBP-985>.
+///
+pub fn type_0(theta: ArrayView1<f64>, theta_p: f64) -> Array1<f64> {
+    let theta_r = (theta.to_owned() - theta_p).to_radians().mapv(|angle| {
+        if angle < -PI {
+            angle + 2.0 * PI
+        } else if angle > PI {
+            angle - 2.0 * PI
+        } else {
+            angle
+        }
+    });
+
+    theta_r.mapv(|angle| 2.0 / PI * angle.cos().powi(2))
+}
+
 /// Calculates the directional spreading function in D_1 form.
 pub fn spread_cos_n(theta: ArrayView1<f64>, theta_p: f64, n: f64) -> Array1<f64> {
     let theta_p = theta_p.to_radians();
