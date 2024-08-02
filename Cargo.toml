@@ -3,6 +3,9 @@ name = "ndspec"
 version = "0.1.0"
 authors = ["Michael Morris-Thomas <michael.morris-thomas@uwa.edu.au>"]
 description = "A package for ocean waves and energy spectra"
+repository = "https://github.com/mikemt/ndspec"
+license-file = "LICENSE.txt"
+license = "MIT OR Apache-2.0"
 edition = "2021"
 
 include = ["src/*", "assets/*.*", "Cargo.toml"]
