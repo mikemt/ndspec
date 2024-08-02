@@ -32,7 +32,7 @@
 //! U.S. Army Coastal Engineering Research Center, Fort Belvoir, VA.
 //!
 
-mod bretschneider;
+pub mod bretschneider;
 mod common;
 pub mod gaussian;
 pub mod jonswap;
