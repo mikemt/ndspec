@@ -82,11 +82,7 @@ use pyo3::prelude::*;
 pub mod prelude {
 
     // constants
-    pub const GRAVITY: f64 = 9.80665;
-    pub const PI: f64 = std::f64::consts::PI;
-    pub const TWO_PI: f64 = 2.0 * PI;
-    pub const RHO_SEA_WATER: f64 = 1025.0;
-    pub const RHO_AIR: f64 = 1.225;
+    pub use crate::core::constants::{GRAVITY, KNOT, PI, RHO_AIR, RHO_SEA_WATER, TWO_PI};
 
     // re-export of the core modules
     pub use crate::core::ndarray_ext;
@@ -97,7 +93,7 @@ pub mod prelude {
         Jonswap,
     };
     pub use crate::waves::spreading::{spread_cos_2s, spread_cos_n, Spreading};
-    pub use crate::waves::{gaussian::gaussian_spectrum, jonswap, Bretschneider, PiersonMoskowitz};
+    pub use crate::waves::{bretschneider, gaussian::gaussian_spectrum, jonswap, PiersonMoskowitz};
     pub use crate::wind::*;
 
     // re-export of external crate types and traits for convenience

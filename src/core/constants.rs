@@ -1,17 +1,11 @@
-// gravity
+use crate::prelude::*;
+
 pub const GRAVITY: f64 = 9.80665;
-
 pub const PI: f64 = std::f64::consts::PI;
-
-// 1 knot = 0.5144444444444444 m/s
-pub const KNOT: f64 = 0.5144444444444444;
-
-// air density
-pub const RHO_AIR: f64 = 1.28;
-//pub const RHO_AIR: f64 = 1.225;
-
-// sea water density
+pub const TWO_PI: f64 = 2.0 * PI;
 pub const RHO_SEA_WATER: f64 = 1025.0;
+pub const RHO_AIR: f64 = 1.225;
+pub const KNOT: f64 = 0.5144444444444444;
 
 pub trait VelocityConversions {
     fn speed(&self) -> f64;
