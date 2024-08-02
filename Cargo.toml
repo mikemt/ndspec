@@ -4,14 +4,18 @@ version = "0.1.0"
 authors = ["Michael Morris-Thomas <michael.morris-thomas@uwa.edu.au>"]
 description = "A package for ocean waves and energy spectra"
 repository = "https://github.com/mikemt/ndspec"
-license-file = "LICENSE.txt"
-license = "MIT OR Apache-2.0"
+license = "MIT"
 edition = "2021"
+keywords = ["ocean waves", "water waves", "energy density spectra"]
 
-include = ["src/*", "assets/*.*", "Cargo.toml"]
+include = ["src/*", "crates/*", "assets/*.*", "Cargo.toml"]
+
 
 [workspace]
-members = [ "crates/*"]
+members = [
+    "crates/azimuth",
+    "crates/ndcore",
+]
 
 [dependencies]
 ndarray = "0.15.6"
@@ -48,4 +52,7 @@ hard_tabs = false
 tab_spaces = 4
 newline_style = "Auto"
 
+[patch.crates-io]
+azimuth = { path = "./crates/azimuth" }
+ndcore = { path = "./crates/ndcore" }
 

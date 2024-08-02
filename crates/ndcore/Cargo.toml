@@ -1,6 +1,10 @@
 [package]
 name = "ndcore"
-version = "0.1.0"
+version = "0.10.0"
+authors = ["Michael Morris-Thomas <michael.morris-thomas@uwa.edu.au>"]
 edition = "2021"
+
+[lib]
+name = "ndcore"
 
 [dependencies]
