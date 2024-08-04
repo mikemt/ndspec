@@ -1,4 +1,4 @@
-//! # ndpec
+//! # ndspec
 //!
 //! `ndspec` is a crate for working with energy density spectra with a focus on ocean waves, wind, and related response spectra.
 //!
@@ -40,6 +40,35 @@
 //! let mut bretschneider = Bretschneider::new(hs, tp);
 //! let omega = Array1::linspace(0.1, PI, 100);
 //! let energy = bretschneider.set_omega(omega).energy();
+//! ```
+//!
+//! ## Python Extension
+//!
+//! The crate provides a Python extension that can be compiled and
+//! installed seperately. To build the extension, `maturin` is
+//! required and the `python-extension` feature must be enabled:
+//!
+//! ```bash
+//! maturin build --release --features python-extension
+//! ```
+//!
+//! and install with `pip`.
+//!
+//! ### Examples
+//!
+//! Define a Jonswap energy density spectrum from only Hs and Tp,
+//! convert to a `Spectrum1D` type, and then evaluate the most probable
+//! maximum amplitude over a 3 hour (10,800 s) time window:
+//! ```python
+//! import ndspec
+//! S = ndspec.Jonswap(hs=1.5, tp=10.0).to_spec1d()
+//! print(S.Ampm(10_800))
+//! ```
+//!
+//! Print out the help for the Jonswap class in Python::
+//! ```python
+//! import ndspec
+//! help(ndspec.Jonswap)
 //! ```
 //!
 #![cfg_attr(
