@@ -6,19 +6,21 @@ build-backend = "maturin"
 
 [project]
 name = "ndspec"
-version = "0.1.0"
+dynamic = ["version"]
 description = "A package for ocean waves and energy spectra"
 authors = [
-    { name = "Michael Morris-Thomas", email = "michael.morristhomas@me.com" },
+    { name = "Michael Morris-Thomas", email = "michael.morris-thomas@uwa.edu.au" },
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Programming Language :: Rust",
     "Programming Language :: Python :: Implementation :: CPython",
-    "Programming Language :: Python :: Implementation :: PyPy",
     "Topic :: Scientific/Engineering",
     "Topic :: Scientific/Engineering :: Physics",
-    "License :: Other/Proprietary License",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Scientific/Engineering :: Oceanography",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
 ]
 license = {file = "LICENSE.txt"}
 dependencies = [
@@ -27,6 +29,8 @@ dependencies = [
 requires-python = ">=3.12"
 readme = "README.md"
 
+[project.urls]
+repository = "https://github.com/mikemt/ndspec.git"
 
 [project.optional-dependencies]
 dev = [
